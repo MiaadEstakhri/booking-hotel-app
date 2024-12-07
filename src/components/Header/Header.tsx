@@ -1,12 +1,17 @@
+import React, { useState } from "react";
 import { CalenderIcon, LocationIcon, SearchIcon } from "../../assets/icons";
 
 export default function Header() {
+  const [destination, setDestination] = useState<string>("");
+
   return (
     <div className=" m-5">
       <div className="grid grid-cols-4 border rounded-2xl p-4">
         <div className=" flex justify-center items-center gap-1">
           <LocationIcon fill="rgb(239 68 68)" />
           <input
+            value={destination}
+            onChange={(event) => setDestination(event.target.value)}
             type="text"
             placeholder="where to go?"
             name="destination"
