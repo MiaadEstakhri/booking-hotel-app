@@ -16,6 +16,7 @@ export default function Header() {
             placeholder="where to go?"
             name="destination"
             id="destination"
+            className="outline-none"
           />
         </div>
         <div className="grid grid-cols-3">
