@@ -1,20 +1,16 @@
 export type OptionsType = {
   [key: string]: number;
 };
+type HandleOptionsType = (type: string, operation: string) => void;
 
 export type OptionItemType = {
   type: string;
   options: OptionsType;
   minLimit: number;
-  handleOptions: (type: string, operation: string) => void;
-};
-
-export type GuestOptions = {
-  Adult: number;
-  Children: number;
-  Room: number;
+  handleOptions: HandleOptionsType;
 };
 
 export type GuestOptionListType = {
-  options: GuestOptions;
+  options: OptionsType;
+  handleOptions: HandleOptionsType;
 };
