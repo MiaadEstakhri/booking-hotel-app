@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   CalenderIcon,
   LocationIcon,
@@ -6,7 +6,11 @@ import {
   PlusIcon,
   SearchIcon,
 } from "../../assets/icons";
-import { OptionItemType, OptionsType } from "./Header.type";
+import {
+  GuestOptionListType,
+  OptionItemType,
+  OptionsType,
+} from "./Header.type";
 
 export default function Header() {
   const [destination, setDestination] = useState<string>("");
@@ -81,7 +85,7 @@ export default function Header() {
   );
 }
 
-function GuestOptionList({ options, handleOptions }) {
+function GuestOptionList({ options, handleOptions }: GuestOptionListType) {
   return (
     <div className="absolute w-60 bg-white shadow-xl top-20 py-3 px-4 z-40 rounded-lg">
       <OptionItem
