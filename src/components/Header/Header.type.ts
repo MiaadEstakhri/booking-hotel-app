@@ -13,4 +13,5 @@ export type OptionItemType = {
 export type GuestOptionListType = {
   options: OptionsType;
   handleOptions: HandleOptionsType;
+  setIsOpenOption: React.Dispatch<React.SetStateAction<boolean>>;
 };
