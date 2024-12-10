@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import {
   CalenderIcon,
   LocationIcon,
@@ -11,6 +11,7 @@ import {
   OptionItemType,
   OptionsType,
 } from "./Header.type";
+import useOutsideClick from "../../hooks/useOutsideClick.ts";
 
 export default function Header() {
   const [destination, setDestination] = useState<string>("");
@@ -59,6 +60,7 @@ export default function Header() {
             <div
               className=" flex  items-center text-nowrap cursor-pointer"
               onClick={() => setIsOpenOption(!isOpenOption)}
+              id="optionDropdown"
             >
               {`Adult : ${options.Adult} , Children : ${options.Children} , room : ${options.Room}`}
             </div>
@@ -67,6 +69,7 @@ export default function Header() {
                 <GuestOptionList
                   options={options}
                   handleOptions={handleOptions}
+                  setIsOpenOption={setIsOpenOption}
                 />
               )}
             </>
@@ -85,9 +88,18 @@ export default function Header() {
   );
 }
 
-function GuestOptionList({ options, handleOptions }: GuestOptionListType) {
+function GuestOptionList({
+  options,
+  handleOptions,
+  setIsOpenOption,
+}: GuestOptionListType) {
+  const optionRef = useRef<HTMLDivElement>(null);
+  useOutsideClick(optionRef, "optionDropdown", () => setIsOpenOption(false));
   return (
-    <div className="absolute w-60 bg-white shadow-xl top-20 py-3 px-4 z-40 rounded-lg">
+    <div
+      className="absolute w-60 bg-white shadow-xl top-20 py-3 px-4 z-40 rounded-lg"
+      ref={optionRef}
+    >
       <OptionItem
         type="Adult"
         options={options}
