@@ -12,15 +12,33 @@ import {
   OptionsType,
 } from "./Header.type";
 import useOutsideClick from "../../hooks/useOutsideClick.ts";
+import "react-date-range/dist/styles.css";
+import "react-date-range/dist/theme/default.css";
+import { DateRange } from "react-date-range";
+import { format } from "date-fns";
 
 export default function Header() {
-  const [destination, setDestination] = useState<string>("");
-  const [isOpenOption, setIsOpenOption] = useState<boolean>(false);
+  const [date, setDate] = useState<
+    {
+      startDate: Date;
+      endDate: Date;
+      key: string;
+    }[]
+  >([
+    {
+      startDate: new Date(),
+      endDate: new Date(),
+      key: "selection",
+    },
+  ]);
   const [options, setOptions] = useState<OptionsType>({
     Adult: 1,
     Children: 0,
     Room: 1,
   });
+  const [destination, setDestination] = useState<string>("");
+  const [isOpenOption, setIsOpenOption] = useState<boolean>(false);
+  const [isOpenDate, setIsOpenDate] = useState(false);
 
   const handleOptions = (name: string, operation: string) => {
     setOptions((prev) => {
@@ -46,19 +64,34 @@ export default function Header() {
             className="outline-none"
           />
         </div>
-        <div className="grid grid-cols-3">
-          <span className="justify-self-start border  mx-4 h-10 "></span>
+        <div className="flex justify-center">
+          <span className="border  mx-4 h-10 "></span>
 
-          <div className=" flex  items-center gap-1">
+          <div
+            onClick={() => setIsOpenDate(!isOpenDate)}
+            className="w-full flex justify-center  items-center gap-1 cursor-pointer text-nowrap "
+          >
             <CalenderIcon fill="rgb(139 92 246)" />
-            <div>2022/3/3</div>
+            <div>{`${format(date[0].startDate, "MM/dd/yyyy")} to ${format(
+              date[0].endDate,
+              "MM/dd/yyyy"
+            )}`}</div>
           </div>
+          {isOpenDate && (
+            <DateRange
+              ranges={date}
+              className="absolute top-20"
+              onChange={(item: any) => setDate([item.selection])}
+              minDate={new Date()}
+              moveRangeOnFirstSelection={true}
+            />
+          )}
         </div>
-        <div className="grid grid-cols-3">
-          <span className="justify-self-start border  mx-4 h-10 "></span>
-          <div className="flex ">
+        <div className="flex justify-center">
+          <span className="border  mx-4 h-10 "></span>
+          <div className="w-full flex justify-center">
             <div
-              className=" flex  items-center text-nowrap cursor-pointer"
+              className="w-full flex justify-center items-center text-nowrap cursor-pointer"
               onClick={() => setIsOpenOption(!isOpenOption)}
               id="optionDropdown"
             >
@@ -75,9 +108,9 @@ export default function Header() {
             </>
           </div>
         </div>
-        <div className="grid grid-cols-3">
-          <span className="justify-self-start border  mx-4 h-10 "></span>
-          <div className=" flex  items-center gap-1">
+        <div className="flex">
+          <span className=" border  mx-4 h-10 "></span>
+          <div className="w-full flex justify-center items-center gap-1">
             <button className="bg-violet-500 p-2 rounded-md">
               <SearchIcon stroke="#ffff" />
             </button>
