@@ -7,7 +7,11 @@ export default function useOutsideClick(
 ) {
   useEffect(() => {
     function handleOutsideClick(event: MouseEvent) {
-      if (ref.current && (event.target as HTMLElement)?.id !== exceptionId) {
+      if (
+        ref.current &&
+        !ref.current.contains(event.target as HTMLElement) &&
+        (event.target as HTMLElement)?.id !== exceptionId
+      ) {
         cb();
       }
     }
