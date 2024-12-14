@@ -7,6 +7,7 @@ import {
   SearchIcon,
 } from "../../assets/icons";
 import {
+  DateRangeTypes,
   GuestOptionListType,
   OptionItemType,
   OptionsType,
@@ -61,7 +62,7 @@ export default function Header() {
             placeholder="where to go?"
             name="destination"
             id="destination"
-            className="outline-none"
+            className="outline-none text-sm lg:text-md "
           />
         </div>
         <div className="flex justify-center">
@@ -69,7 +70,8 @@ export default function Header() {
 
           <div
             onClick={() => setIsOpenDate(!isOpenDate)}
-            className="w-full flex justify-center  items-center gap-1 cursor-pointer text-nowrap "
+            className="w-full flex justify-center  items-center gap-1 cursor-pointer text-wrap text-sm lg:text-md "
+            id="calenderDropdown"
           >
             <CalenderIcon fill="rgb(139 92 246)" />
             <div>{`${format(date[0].startDate, "MM/dd/yyyy")} to ${format(
@@ -78,12 +80,10 @@ export default function Header() {
             )}`}</div>
           </div>
           {isOpenDate && (
-            <DateRange
-              ranges={date}
-              className="absolute top-20"
-              onChange={(item: any) => setDate([item.selection])}
-              minDate={new Date()}
-              moveRangeOnFirstSelection={true}
+            <DataRange
+              date={date}
+              setDate={setDate}
+              setIsOpenDate={setIsOpenDate}
             />
           )}
         </div>
@@ -91,7 +91,7 @@ export default function Header() {
           <span className="border  mx-4 h-10 "></span>
           <div className="w-full flex justify-center">
             <div
-              className="w-full flex justify-center items-center text-nowrap cursor-pointer"
+              className="w-full flex justify-center items-center text-wrap text-sm lg:text-md  cursor-pointer"
               onClick={() => setIsOpenOption(!isOpenOption)}
               id="optionDropdown"
             >
@@ -182,6 +182,21 @@ function OptionItem({
           <PlusIcon className="h-4 w-4" />
         </button>
       </div>
+    </div>
+  );
+}
+
+function DataRange({ date, setDate, setIsOpenDate }: DateRangeTypes) {
+  const dataRangeRef = useRef<HTMLDivElement>(null);
+  useOutsideClick(dataRangeRef, "calenderDropdown", () => setIsOpenDate(false));
+  return (
+    <div className="absolute top-20" ref={dataRangeRef}>
+      <DateRange
+        ranges={date}
+        onChange={(item: any) => setDate([item.selection])}
+        minDate={new Date()}
+        moveRangeOnFirstSelection={true}
+      />
     </div>
   );
 }
