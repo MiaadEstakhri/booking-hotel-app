@@ -15,7 +15,7 @@ export default function useFetch(url: string, query = "") {
         if (error instanceof Error) {
           setData([]);
           toast.error(error.message);
-          console.error("An unexpected error occurred");
+        } else {
           toast.error("An unexpected error occurred");
         }
       } finally {
@@ -25,5 +25,5 @@ export default function useFetch(url: string, query = "") {
     fetchData();
   }, [url, query]);
 
-  return [isLoading, data];
+  return { isLoading, data };
 }
