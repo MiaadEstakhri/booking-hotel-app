@@ -1,4 +1,5 @@
 import { useRef, useState } from "react";
+import { createSearchParams, useNavigate } from "react-router-dom";
 import {
   CalenderIcon,
   LocationIcon,
@@ -40,6 +41,7 @@ export default function Header() {
   const [destination, setDestination] = useState<string>("");
   const [isOpenOption, setIsOpenOption] = useState<boolean>(false);
   const [isOpenDate, setIsOpenDate] = useState(false);
+  const navigate = useNavigate();
 
   const handleOptions = (name: string, operation: string) => {
     setOptions((prev) => {
@@ -47,6 +49,19 @@ export default function Header() {
         ...prev,
         [name]: operation === "inc" ? options[name] + 1 : options[name] - 1,
       };
+    });
+  };
+
+  const handleSearch = () => {
+    const enCodeParams = createSearchParams({
+      date: JSON.stringify(date),
+      destination: destination,
+      options: JSON.stringify(options),
+    });
+
+    navigate({
+      pathname: "/hotels",
+      search: enCodeParams.toString(),
     });
   };
 
@@ -111,7 +126,10 @@ export default function Header() {
         <div className="flex">
           <span className=" border  mx-4 h-10 "></span>
           <div className="w-full flex justify-center items-center gap-1">
-            <button className="bg-violet-500 p-2 rounded-md">
+            <button
+              className="bg-violet-500 p-2 rounded-md"
+              onClick={handleSearch}
+            >
               <SearchIcon stroke="#ffff" />
             </button>
           </div>
