@@ -1,5 +1,8 @@
 import { useRef, useState } from "react";
 import { createSearchParams, useNavigate } from "react-router-dom";
+import { DateRange } from "react-date-range";
+import { format } from "date-fns";
+import useOutsideClick from "../../hooks/useOutsideClick.ts";
 import {
   CalenderIcon,
   LocationIcon,
@@ -9,24 +12,16 @@ import {
 } from "../../assets/icons";
 import {
   DateRangeTypes,
+  HandelDateRangeTypes,
   GuestOptionListType,
   OptionItemType,
   OptionsType,
 } from "./Header.type";
-import useOutsideClick from "../../hooks/useOutsideClick.ts";
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
-import { DateRange } from "react-date-range";
-import { format } from "date-fns";
 
 export default function Header() {
-  const [date, setDate] = useState<
-    {
-      startDate: Date;
-      endDate: Date;
-      key: string;
-    }[]
-  >([
+  const [date, setDate] = useState<DateRangeTypes>([
     {
       startDate: new Date(),
       endDate: new Date(),
@@ -40,7 +35,7 @@ export default function Header() {
   });
   const [destination, setDestination] = useState<string>("");
   const [isOpenOption, setIsOpenOption] = useState<boolean>(false);
-  const [isOpenDate, setIsOpenDate] = useState(false);
+  const [isOpenDate, setIsOpenDate] = useState<boolean>(false);
   const navigate = useNavigate();
 
   const handleOptions = (name: string, operation: string) => {
@@ -58,7 +53,6 @@ export default function Header() {
       destination: destination,
       options: JSON.stringify(options),
     });
-
     navigate({
       pathname: "/hotels",
       search: enCodeParams.toString(),
@@ -82,17 +76,16 @@ export default function Header() {
         </div>
         <div className="flex justify-center">
           <span className="border  mx-4 h-10 "></span>
-
           <div
             onClick={() => setIsOpenDate(!isOpenDate)}
             className="w-full flex justify-center  items-center gap-1 cursor-pointer text-wrap text-sm lg:text-md "
             id="calenderDropdown"
           >
             <CalenderIcon fill="rgb(139 92 246)" />
-            <div>{`${format(date[0].startDate, "MM/dd/yyyy")} to ${format(
-              date[0].endDate,
+            <span id="calenderDropdown">{`${format(
+              date[0].startDate,
               "MM/dd/yyyy"
-            )}`}</div>
+            )} to ${format(date[0].endDate, "MM/dd/yyyy")}`}</span>
           </div>
           {isOpenDate && (
             <DataRange
@@ -204,7 +197,7 @@ function OptionItem({
   );
 }
 
-function DataRange({ date, setDate, setIsOpenDate }: DateRangeTypes) {
+function DataRange({ date, setDate, setIsOpenDate }: HandelDateRangeTypes) {
   const dataRangeRef = useRef<HTMLDivElement>(null);
   useOutsideClick(dataRangeRef, "calenderDropdown", () => setIsOpenDate(false));
   return (
