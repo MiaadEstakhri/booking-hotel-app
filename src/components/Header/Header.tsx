@@ -11,8 +11,8 @@ import {
   SearchIcon,
 } from "../../assets/icons";
 import {
+  DateTypes,
   DateRangeTypes,
-  HandelDateRangeTypes,
   GuestOptionListType,
   OptionItemType,
   OptionsType,
@@ -21,7 +21,7 @@ import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
 
 export default function Header() {
-  const [date, setDate] = useState<DateRangeTypes>([
+  const [date, setDate] = useState<DateTypes>([
     {
       startDate: new Date(),
       endDate: new Date(),
@@ -197,7 +197,7 @@ function OptionItem({
   );
 }
 
-function DataRange({ date, setDate, setIsOpenDate }: HandelDateRangeTypes) {
+function DataRange({ date, setDate, setIsOpenDate }: DateRangeTypes) {
   const dataRangeRef = useRef<HTMLDivElement>(null);
   useOutsideClick(dataRangeRef, "calenderDropdown", () => setIsOpenDate(false));
   return (
