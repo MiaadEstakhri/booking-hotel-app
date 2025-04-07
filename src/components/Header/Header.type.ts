@@ -16,14 +16,14 @@ export type GuestOptionListType = {
   setIsOpenOption: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-export type DateRangeTypes = Array<{
+export type DateTypes = Array<{
   startDate: Date;
   endDate: Date;
   key: string;
 }>;
 
-export type HandelDateRangeTypes = {
-  date: DateRangeTypes;
-  setDate: (date: DateRangeTypes) => void;
+export type DateRangeTypes = {
+  date: DateTypes;
+  setDate: (date: DateTypes) => void;
   setIsOpenDate: (isOpen: boolean) => void;
 };
