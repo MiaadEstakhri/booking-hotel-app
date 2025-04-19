@@ -6,4 +6,5 @@ export type HotelTypes = {
   smart_location: string;
   name: string;
   price: number;
+  id: number;
 };

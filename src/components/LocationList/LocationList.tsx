@@ -17,9 +17,10 @@ export default function LocationList() {
             smart_location,
             name,
             price,
+            id,
           }: HotelTypes) => {
             return (
-              <div className="mt-10">
+              <div className="mt-10" key={id}>
                 <div className="w-80 h-56 border rounded-lg">
                   <img
                     className="w-full h-full text-wrap rounded-lg"
