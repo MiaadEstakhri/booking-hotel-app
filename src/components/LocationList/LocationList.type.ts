@@ -7,4 +7,6 @@ export type HotelTypes = {
   name: string;
   price: number;
   id: number;
+  latitude?: number;
+  longitude?: number;
 };
