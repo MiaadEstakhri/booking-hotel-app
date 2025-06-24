@@ -61,7 +61,7 @@ export default function Header() {
 
   return (
     <div className="">
-      <div className="grid grid-cols-4 border rounded-2xl p-4">
+      <div className="grid grid-cols-4 border rounded-2xl p-4 mt-8">
         <div className=" flex justify-center items-center gap-1">
           <LocationIcon fill="rgb(239 68 68)" />
           <input

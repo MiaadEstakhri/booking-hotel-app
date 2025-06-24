@@ -9,7 +9,7 @@ export default function LocationList() {
   return (
     <div className="w-full ">
       <h2 className="mt-8 text-center font-bold text-2xl">Nearby Locations</h2>
-      <div className="w-full grid grid-cols-1 sm:grid-cols-2  lg:grid-cols-3 xl:grid-cols-4 justify-items-center ">
+      <div className="w-full grid grid-cols-1 sm:grid-cols-2   md:flex md:flex-wrap md:justify-between justify-items-center ">
         {data.map(
           ({
             picture_url: { filename },
@@ -20,8 +20,8 @@ export default function LocationList() {
             id,
           }: HotelTypes) => {
             return (
-              <div className="mt-10" key={id}>
-                <div className="w-80 h-56 border rounded-lg">
+              <div className="w-full md:w-[22rem] lg:w-80 mt-10" key={id}>
+                <div className="w-full h-56 border rounded-lg">
                   <img
                     className="w-full h-full text-wrap rounded-lg"
                     src={xl_picture_url === null ? notImg : xl_picture_url}

@@ -1,4 +1,3 @@
-import "./App.css";
 import { Toaster } from "react-hot-toast";
 import Header from "./components/Header/Header";
 import LocationList from "./components/LocationList/LocationList";
@@ -8,7 +7,7 @@ import Hotels from "./components/Hotels/Hotels";
 
 function App() {
   return (
-    <main className="m-5">
+    <main className="px-5 md:px-8 lg:px-16">
       <Toaster />
       <Header />
       <Routes>
