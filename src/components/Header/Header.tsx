@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import { createSearchParams, useNavigate } from "react-router-dom";
-import { DateRange } from "react-date-range";
+import { DateRange, RangeKeyDict } from "react-date-range";
 import { format } from "date-fns";
 import useOutsideClick from "../../hooks/useOutsideClick.ts";
 import {
@@ -199,7 +199,16 @@ function DataRange({ date, setDate, setIsOpenDate }: DateRangeTypes) {
     <div className="absolute top-20" ref={dataRangeRef}>
       <DateRange
         ranges={date}
-        onChange={(item: any) => setDate([item.selection])}
+        onChange={(item: RangeKeyDict) => {
+          const selection = item.selection;
+          setDate([
+            {
+              startDate: selection.startDate ?? new Date(),
+              endDate: selection.endDate ?? new Date(),
+              key: selection.key || "selection",
+            },
+          ]);
+        }}
         minDate={new Date()}
         moveRangeOnFirstSelection={true}
       />
