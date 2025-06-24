@@ -116,7 +116,7 @@ export default function Header() {
             </>
           </div>
           <button
-            className="bg-violet-500 p-2 rounded-md"
+            className="bg-violet-500 p-[.6rem] rounded-xl"
             onClick={handleSearch}
           >
             <SearchIcon stroke="#ffff" />
