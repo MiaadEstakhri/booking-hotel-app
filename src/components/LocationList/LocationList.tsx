@@ -9,7 +9,7 @@ export default function LocationList() {
   return (
     <div className="w-full ">
       <h2 className="mt-8 text-center font-bold text-2xl">Nearby Locations</h2>
-      <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4   2xl:flex 2xl:flex-wrap 2xl:justify-between justify-items-center gap-4">
+      <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4    justify-items-center gap-4">
         {data.map(
           ({
             picture_url: { filename },
