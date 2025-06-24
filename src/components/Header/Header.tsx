@@ -60,8 +60,8 @@ export default function Header() {
   };
 
   return (
-    <div className="">
-      <div className="grid grid-cols-4 border rounded-2xl p-4 mt-8">
+    <div className="hidden lg:flex justify-center">
+      <div className="w-full lg:max-w-[980px] 2xl:max-w-[1400px] grid grid-cols-3 border rounded-3xl p-4 mt-8">
         <div className=" flex justify-center items-center gap-1">
           <LocationIcon fill="rgb(239 68 68)" />
           <input
@@ -115,17 +115,12 @@ export default function Header() {
               )}
             </>
           </div>
-        </div>
-        <div className="flex">
-          <span className=" border  mx-4 h-10 "></span>
-          <div className="w-full flex justify-center items-center gap-1">
-            <button
-              className="bg-violet-500 p-2 rounded-md"
-              onClick={handleSearch}
-            >
-              <SearchIcon stroke="#ffff" />
-            </button>
-          </div>
+          <button
+            className="bg-violet-500 p-2 rounded-md"
+            onClick={handleSearch}
+          >
+            <SearchIcon stroke="#ffff" />
+          </button>
         </div>
       </div>
     </div>
