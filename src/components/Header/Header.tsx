@@ -60,9 +60,9 @@ export default function Header() {
   };
 
   return (
-    <div className="hidden lg:flex justify-center">
-      <div className="w-full lg:max-w-[980px] 2xl:max-w-[1400px] grid grid-cols-3 border rounded-3xl p-4 mt-8">
-        <div className=" flex justify-center items-center gap-1">
+    <div className="hidden lg:flex justify-center items-center mt-8">
+      <div className="w-full lg:max-w-[980px] 2xl:max-w-[1400px] grid grid-cols-3 border rounded-3xl px-6 py-4 ">
+        <div className="w-full flex justify-start items-center gap-2">
           <LocationIcon fill="rgb(239 68 68)" />
           <input
             value={destination}
@@ -71,7 +71,7 @@ export default function Header() {
             placeholder="where to go?"
             name="destination"
             id="destination"
-            className="outline-none text-sm lg:text-md "
+            className="outline-none text-sm lg:text-md w-full"
           />
         </div>
         <div className="flex justify-center">
