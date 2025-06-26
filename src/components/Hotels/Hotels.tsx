@@ -4,7 +4,7 @@ import notImg from "../../assets/images/hoteldesign.webp";
 import { HotelTypes } from "../LocationList/LocationList.type";
 
 function Hotels() {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const destination = searchParams.get("destination");
   const room = JSON.parse(searchParams.get("options") || "")?.Room;
   const { isLoading, data } = useFetch(
