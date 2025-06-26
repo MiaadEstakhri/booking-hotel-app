@@ -1,5 +1,9 @@
 import { useRef, useState } from "react";
-import { createSearchParams, useNavigate } from "react-router-dom";
+import {
+  createSearchParams,
+  useNavigate,
+  useSearchParams,
+} from "react-router-dom";
 import { DateRange, RangeKeyDict } from "react-date-range";
 import { format } from "date-fns";
 import useOutsideClick from "../../hooks/useOutsideClick.ts";
@@ -21,6 +25,7 @@ import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
 
 export default function Header() {
+  const [searchParams] = useSearchParams();
   const [date, setDate] = useState<DateTypes>([
     {
       startDate: new Date(),
@@ -33,7 +38,9 @@ export default function Header() {
     Children: 0,
     Room: 1,
   });
-  const [destination, setDestination] = useState<string>("");
+  const [destination, setDestination] = useState<string>(
+    searchParams.get("destination") || ""
+  );
   const [isOpenOption, setIsOpenOption] = useState<boolean>(false);
   const [isOpenDate, setIsOpenDate] = useState<boolean>(false);
   const navigate = useNavigate();
