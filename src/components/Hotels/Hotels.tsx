@@ -1,24 +1,18 @@
-import { Link, useSearchParams } from "react-router-dom";
-import useFetch from "../../hooks/useFetch";
+import { Link } from "react-router-dom";
 import notImg from "../../assets/images/hoteldesign.webp";
 import { HotelTypes } from "../LocationList/LocationList.type";
+import { useHotels } from "../context/hotelsProvider";
 
 function Hotels() {
-  const [searchParams] = useSearchParams();
-  const destination = searchParams.get("destination");
-  const room = JSON.parse(searchParams.get("options") || "")?.Room;
-  const { isLoading, data } = useFetch(
-    "http://localhost:3000/hotels",
-    `q=${destination || ""}&accommodates_gte=${room || 1}`
-  );
+  const { isLoading, hotels } = useHotels();
 
   if (isLoading) <div>Loading...</div>;
   return (
     <div className="mt-5  ms-3">
       <h2 className="text-xl font-semibold text-nowrap mb-6">
-        Search Result : ({data.length})
+        Search Result : ({hotels.length})
       </h2>
-      {data.map(
+      {hotels.map(
         ({
           picture_url: { filename },
           xl_picture_url,
