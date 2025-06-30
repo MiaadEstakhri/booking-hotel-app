@@ -16,7 +16,8 @@ const HotelsContext = createContext<HotelsContextType>({
 function HotelsProvider({ children }: { children: React.ReactNode }) {
   const [searchParams] = useSearchParams();
   const destination = searchParams.get("destination");
-  const room = JSON.parse(searchParams.get("options") || "")?.Room;
+  const options = searchParams.get("options");
+  const room = options ? JSON.parse(options).Room : "";
   const { isLoading, data: hotels } = useFetch(
     "http://localhost:3000/hotels",
     `q=${destination || ""}&accommodates_gte=${room || 1}`

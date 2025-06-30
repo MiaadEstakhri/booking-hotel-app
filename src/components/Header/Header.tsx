@@ -57,7 +57,7 @@ export default function Header() {
   const handleSearch = () => {
     const enCodeParams = createSearchParams({
       date: JSON.stringify(date),
-      destination: destination,
+      destination,
       options: JSON.stringify(options),
     });
     navigate({
