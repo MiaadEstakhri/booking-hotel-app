@@ -1,4 +1,5 @@
 import { Outlet } from "react-router-dom";
+import Map from "../Map";
 
 export default function AppLayout() {
   return (
@@ -6,7 +7,9 @@ export default function AppLayout() {
       <div className="col-span-5">
         <Outlet />
       </div>
-      <div className="col-span-7">map</div>
+      <div className="col-span-7">
+        <Map />
+      </div>
     </div>
   );
 }
