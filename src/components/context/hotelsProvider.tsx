@@ -17,7 +17,7 @@ function HotelsProvider({ children }: { children: React.ReactNode }) {
   const [searchParams] = useSearchParams();
   const destination = searchParams.get("destination");
   const options = searchParams.get("options");
-  const room = options ? JSON.parse(options).Room : "";
+  const room = options ? JSON.parse(options).Room : [];
   const { isLoading, data: hotels } = useFetch(
     "http://localhost:3000/hotels",
     `q=${destination || ""}&accommodates_gte=${room || 1}`
