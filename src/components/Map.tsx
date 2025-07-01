@@ -5,6 +5,12 @@ import { useState } from "react";
 function Map() {
   const { isLoading, hotels } = useHotels();
   const [mapCenter] = useState<[number, number]>([20, 3]);
+
+  if (isLoading)
+    return (
+      <div className="flex justify-center items-center h-full">Loading...</div>
+    );
+
   return (
     <MapContainer
       center={mapCenter}
