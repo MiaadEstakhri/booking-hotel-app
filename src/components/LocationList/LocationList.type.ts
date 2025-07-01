@@ -9,4 +9,5 @@ export type HotelTypes = {
   id: number;
   latitude?: number;
   longitude?: number;
+  host_location?: string;
 };
