@@ -8,7 +8,7 @@ function Hotels() {
 
   if (isLoading) <div>Loading...</div>;
   return (
-    <div className="mt-5  ms-3">
+    <div className="">
       <h2 className="text-xl font-semibold text-nowrap mb-6">
         Search Result : ({hotels.length})
       </h2>
@@ -29,15 +29,15 @@ function Hotels() {
               to={`/hotels/${id}?lat=${latitude}&lng=${longitude}`}
             >
               <div className="flex gap-3 mt-4" key={id}>
-                <div className="w-28 h-28 border rounded-xl text-xs text-wrap">
+                <div className="w-20 h-20 md:w-28 md:h-28 xl:w-44 xl:h-32 border rounded-xl  text-wrap overflow-hidden">
                   <img
                     className="w-full h-full text-wrap rounded-lg"
                     src={xl_picture_url === null ? notImg : xl_picture_url}
                     alt={filename}
                   />
                 </div>
-                <div className="mt-2 text-sm">
-                  <p className="">{smart_location}</p>
+                <div className="mt-2 text-sm xl:text-base">
+                  <p className="xl:text-lg">{smart_location}</p>
                   <p className="text-gray-400">{name}</p>
                   <p className="">
                     <span className="text-gray-400">€</span>
