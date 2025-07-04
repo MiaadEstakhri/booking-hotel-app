@@ -1,6 +1,7 @@
+import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useHotels } from "../context/hotelsProvider";
-import { useEffect } from "react";
+import notImg from "../../assets/images/hoteldesign.webp";
 
 function SingleHotel() {
   const { id } = useParams();
@@ -10,7 +11,7 @@ function SingleHotel() {
     if (id) {
       getHotel(id);
     }
-  }, [id, getHotel]);
+  }, [id]);
 
   if (isLoadingCurrentHotel && !currentHotel) return <div>Loading...</div>;
 
@@ -19,12 +20,16 @@ function SingleHotel() {
       <div className="">
         <h2 className="xl:text-lg font-bold">{currentHotel?.name}</h2>
         <div className="text-sm xl:text-base text-gray-500">
-          {currentHotel?.number_of_reviews} reviews &bull;{" "}
+          {currentHotel?.number_of_reviews} reviews &bull;
           {currentHotel?.smart_location}
         </div>
       </div>
       <img
-        src={currentHotel?.xl_picture_url}
+        src={
+          currentHotel?.xl_picture_url === null
+            ? notImg
+            : currentHotel?.xl_picture_url
+        }
         alt={currentHotel?.name}
         className="h-[250px] w-full xl:w-[500px] object-cover rounded-xl"
       />
