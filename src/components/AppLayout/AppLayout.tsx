@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import Map from "../Map";
+import Map from "../Map/Map";
 
 export default function AppLayout() {
   return (
