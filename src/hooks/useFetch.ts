@@ -2,8 +2,8 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
-export default function useFetch(url: string, query = "") {
-  const [data, setData] = useState([]);
+export default function useFetch<T = []>(url: string, query = "") {
+  const [data, setData] = useState<T | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   useEffect(() => {
     async function fetchData() {
@@ -13,7 +13,7 @@ export default function useFetch(url: string, query = "") {
         setData(data);
       } catch (error: unknown) {
         if (error instanceof Error) {
-          setData([]);
+          setData(null);
           toast.error(error.message);
         } else {
           toast.error("An unexpected error occurred");

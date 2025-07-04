@@ -24,7 +24,7 @@ function HotelsProvider({ children }: { children: React.ReactNode }) {
   );
 
   return (
-    <HotelsContext.Provider value={{ isLoading, hotels }}>
+    <HotelsContext.Provider value={{ isLoading, hotels: hotels || [] }}>
       {children}
     </HotelsContext.Provider>
   );
