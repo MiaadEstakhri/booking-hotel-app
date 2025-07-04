@@ -3,4 +3,5 @@ export type SingleHotelTypes = {
   number_of_reviews: number;
   smart_location: string;
   xl_picture_url: string;
+  id?: number;
 };
