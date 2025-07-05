@@ -7,7 +7,7 @@ export default function LocationList() {
 
   if (isLoading) <p>Loading...</p>;
   return (
-    <div className="w-full ">
+    <div className="w-full mb-10">
       <h2 className="mt-8 text-center font-bold text-2xl">Nearby Locations</h2>
       <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4    justify-items-center gap-4">
         {data?.map(
