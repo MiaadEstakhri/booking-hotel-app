@@ -1,12 +1,20 @@
 import { useContext, createContext, useState } from "react";
 import useFetch from "../../hooks/useFetch";
-import { HotelTypes } from "../LocationList/LocationList.type";
 import toast from "react-hot-toast";
 import { SingleHotelTypes } from "../SingleHotel/SingleHotel.type";
 
+export type BookMarkTypes = {
+  id: number;
+  countryCode: string;
+  cityName: string;
+  country: string;
+  latitude: number;
+  longitude: number;
+};
+
 type BookMarkContextType = {
   isLoading: boolean;
-  BookMark: HotelTypes[];
+  bookMarks: BookMarkTypes[];
   getBookMark: (id: string | number) => Promise<void>;
   isLoadingCurrBookmark: boolean;
   currentBookmark: SingleHotelTypes | null;
@@ -14,7 +22,7 @@ type BookMarkContextType = {
 
 const BookMarkContext = createContext<BookMarkContextType>({
   isLoading: false,
-  BookMark: [],
+  bookMarks: [],
   getBookMark: async () => {},
   isLoadingCurrBookmark: false,
   currentBookmark: null,
@@ -51,7 +59,7 @@ function BookMarkProvider({ children }: { children: React.ReactNode }) {
     <BookMarkContext.Provider
       value={{
         isLoading,
-        BookMark: bookMarks || [],
+        bookMarks: bookMarks || [],
         getBookMark,
         isLoadingCurrBookmark,
         currentBookmark,
