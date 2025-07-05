@@ -9,9 +9,25 @@ import {
   useMapEvent,
 } from "react-leaflet";
 import { useHotels } from "../context/HotelsProvider";
-import { HotelTypes } from "../LocationList/LocationList.type";
+type MapProps<
+  T extends {
+    id: number;
+    latitude: number;
+    longitude: number;
+    host_location?: string;
+  }
+> = {
+  markerLocations: T[];
+};
 
-function Map({ markerLocations }: { markerLocations: HotelTypes[] }) {
+function Map<
+  T extends {
+    id: number;
+    latitude: number;
+    longitude: number;
+    host_location?: string;
+  }
+>({ markerLocations }: MapProps<T>) {
   const { isLoading } = useHotels();
   const [mapCenter, setMapCenter] = useState<[number, number]>([50, 3]);
   const [searchParams] = useSearchParams();
