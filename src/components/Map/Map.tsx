@@ -8,7 +8,7 @@ import {
   useMap,
   useMapEvent,
 } from "react-leaflet";
-import { useHotels } from "../context/hotelsProvider";
+import { useHotels } from "../context/HotelsProvider";
 import { HotelTypes } from "../LocationList/LocationList.type";
 
 function Map({ markerLocations }: { markerLocations: HotelTypes[] }) {
@@ -41,6 +41,7 @@ function Map({ markerLocations }: { markerLocations: HotelTypes[] }) {
         url="https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png"
       />
       <ChangeCenter position={mapCenter} />
+      <DetectClick />
       {markerLocations.map(({ id, latitude, longitude, host_location }) => {
         return (
           <Marker key={id} position={[Number(latitude), Number(longitude)]}>
@@ -64,7 +65,7 @@ function DetectClick() {
   const navigate = useNavigate();
   useMapEvent("click", (e) => {
     const { lat, lng } = e.latlng;
-    navigate(`/bookmark?lat=${lat}&lng=${lng}`);
+    navigate(`/bookmark/add?lat=${lat}&lng=${lng}`);
   });
   return null;
 }
