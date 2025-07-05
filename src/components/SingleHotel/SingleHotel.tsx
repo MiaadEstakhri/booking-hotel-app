@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { useHotels } from "../context/hotelsProvider";
+import { useHotels } from "../context/HotelsProvider";
 import notImg from "../../assets/images/hoteldesign.webp";
 
 function SingleHotel() {
