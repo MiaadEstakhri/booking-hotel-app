@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import notImg from "../../assets/images/hoteldesign.webp";
 import { HotelTypes } from "../LocationList/LocationList.type";
-import { useHotels } from "../context/hotelsProvider";
+import { useHotels } from "../context/HotelsProvider";
 
 function Hotels() {
   const { isLoading, hotels, currentHotel } = useHotels();

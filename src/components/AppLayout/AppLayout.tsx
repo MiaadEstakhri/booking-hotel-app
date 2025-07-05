@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import { useHotels } from "../context/hotelsProvider";
+import { useHotels } from "../context/HotelsProvider";
 import Map from "../Map/Map";
 
 export default function AppLayout() {
