@@ -1,8 +1,31 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import useUrlLocation from "../../hooks/useUrlLocation";
+
+const BASE_GEOLOCATION_URL =
+  "https://api.bigdatacloud.net/data/reverse-geocode-client";
 
 function AddNewBookMark() {
   const [cityName, setCityName] = useState("");
   const [country, setCountry] = useState("");
+  const navigate = useNavigate();
+  const [latNum, lngNum] = useUrlLocation();
+
+  useEffect(() => {
+    const fetchLocationData = async () => {
+      try {
+        const response = await fetch(
+          `${BASE_GEOLOCATION_URL}?latitude=${latNum}&longitude=${lngNum}&localityLanguage=en`
+        );
+        const data = await response.json();
+        setCityName(data?.city || data?.locality || "");
+        setCountry(data?.countryName || "");
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchLocationData();
+  }, [latNum, lngNum]);
 
   return (
     <div className="flex flex-col gap-4 me-4">
