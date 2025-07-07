@@ -1,7 +1,6 @@
 import { useContext, createContext, useState } from "react";
 import useFetch from "../../hooks/useFetch";
 import toast from "react-hot-toast";
-import { SingleHotelTypes } from "../SingleHotel/SingleHotel.type";
 
 export type BookMarkTypes = {
   id: number;
@@ -17,7 +16,7 @@ type BookMarkContextType = {
   bookMarks: BookMarkTypes[];
   getBookMark: (id: string | number) => Promise<void>;
   isLoadingCurrBookmark: boolean;
-  currentBookmark: SingleHotelTypes | null;
+  currentBookmark: BookMarkTypes | null;
 };
 
 const BookMarkContext = createContext<BookMarkContextType>({
@@ -31,8 +30,9 @@ const BookMarkContext = createContext<BookMarkContextType>({
 const BASE_URL = "http://localhost:3000/bookmarks";
 
 function BookMarkProvider({ children }: { children: React.ReactNode }) {
-  const [currentBookmark, setCurrentBookmark] =
-    useState<SingleHotelTypes | null>(null);
+  const [currentBookmark, setCurrentBookmark] = useState<BookMarkTypes | null>(
+    null
+  );
   const [isLoadingCurrBookmark, setIsLoadingCurrBookmark] =
     useState<boolean>(false);
 
