@@ -95,7 +95,10 @@ function AddNewBookMark() {
         <div className="flex justify-between">
           <button
             className="p-1 px-2  bg-white border-2 border-gray-300 font-semibold rounded-lg shadow-sm"
-            onClick={() => navigate(-1)}
+            onClick={(e) => {
+              e.preventDefault();
+              navigate(-1);
+            }}
           >
             &larr; Back
           </button>
