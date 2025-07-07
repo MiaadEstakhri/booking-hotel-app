@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import ReactCountryFlag from "react-country-flag";
 import useUrlLocation from "../../hooks/useUrlLocation";
 
 const BASE_GEOLOCATION_URL =
@@ -8,24 +9,56 @@ const BASE_GEOLOCATION_URL =
 function AddNewBookMark() {
   const [cityName, setCityName] = useState("");
   const [country, setCountry] = useState("");
+  const [countryCode, setCountryCode] = useState("");
+  const [isLoadingGeoLocation, setIsLoadingGeoLocation] = useState(false);
+  const [errorGeoLocation, setErrorGeoLocation] = useState<string | null>("");
   const navigate = useNavigate();
   const [latNum, lngNum] = useUrlLocation();
 
   useEffect(() => {
+    if (!latNum || !lngNum) return;
     const fetchLocationData = async () => {
+      setIsLoadingGeoLocation(true);
+      setErrorGeoLocation(null);
       try {
         const response = await fetch(
           `${BASE_GEOLOCATION_URL}?latitude=${latNum}&longitude=${lngNum}&localityLanguage=en`
         );
         const data = await response.json();
+        if (!data?.countryCode) {
+          throw new Error("This location is not city! Please try again.");
+        }
         setCityName(data?.city || data?.locality || "");
         setCountry(data?.countryName || "");
+        setCountryCode(data?.countryCode || "");
       } catch (error) {
-        console.log(error);
+        if (error instanceof Error) {
+          setErrorGeoLocation(error?.message);
+        } else {
+          setErrorGeoLocation("An unexpected error occurred");
+        }
+      } finally {
+        setIsLoadingGeoLocation(false);
       }
     };
     fetchLocationData();
   }, [latNum, lngNum]);
+
+  if (isLoadingGeoLocation) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        Loading...
+      </div>
+    );
+  }
+
+  if (errorGeoLocation) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        Error: {errorGeoLocation}
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col gap-4 me-4">
@@ -44,14 +77,20 @@ function AddNewBookMark() {
         </div>
         <div className="flex flex-col gap-1">
           <label htmlFor="country">Country</label>
-          <input
-            type="text"
-            id="country"
-            className="border-2 border-gray-300 rounded-md p-2"
-            placeholder="Enter Country"
-            value={country}
-            onChange={(e) => setCountry(e.target.value)}
-          />
+          <div className="flex items-center justify-between border-2 border-gray-300 rounded-md p-2">
+            <input
+              type="text"
+              id="country"
+              placeholder="Enter Country"
+              value={country}
+              onChange={(e) => setCountry(e.target.value)}
+            />
+            <ReactCountryFlag
+              countryCode={countryCode}
+              svg
+              className="w-6 h-6 "
+            />
+          </div>
         </div>
         <div className="flex justify-between">
           <button
