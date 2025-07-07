@@ -1,4 +1,9 @@
+import { useState } from "react";
+
 function AddNewBookMark() {
+  const [cityName, setCityName] = useState("");
+  const [country, setCountry] = useState("");
+
   return (
     <div className="flex flex-col gap-4 me-4">
       <h2 className="text-2xl font-bold">Add New Bookmark</h2>
