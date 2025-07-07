@@ -1,10 +1,4 @@
-import { useNavigate } from "react-router-dom";
-import useUrlLocation from "../../hooks/useUrlLocation";
-
 function AddNewBookMark() {
-  const navigate = useNavigate();
-  const [latNum, lngNum] = useUrlLocation();
-  console.log(latNum, lngNum);
   return (
     <div className="flex flex-col gap-4 me-4">
       <h2 className="text-2xl font-bold">Add New Bookmark</h2>
@@ -16,6 +10,8 @@ function AddNewBookMark() {
             id="cityName"
             className="border-2 border-gray-300 rounded-md p-2"
             placeholder="Enter City Name"
+            value={cityName}
+            onChange={(e) => setCityName(e.target.value)}
           />
         </div>
         <div className="flex flex-col gap-1">
@@ -25,6 +21,8 @@ function AddNewBookMark() {
             id="country"
             className="border-2 border-gray-300 rounded-md p-2"
             placeholder="Enter Country"
+            value={country}
+            onChange={(e) => setCountry(e.target.value)}
           />
         </div>
         <div className="flex justify-between">
