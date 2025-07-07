@@ -47,7 +47,7 @@ function Map<
       center={mapCenter}
       zoom={13}
       scrollWheelZoom={true}
-      className="h-[300px] md:h-[780px] w-full rounded-xl md:ms-3"
+      className="h-[300px] md:h-[780px] w-full rounded-xl md:ms-3 -z-50"
     >
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
