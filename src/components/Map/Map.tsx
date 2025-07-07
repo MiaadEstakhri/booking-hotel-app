@@ -1,4 +1,4 @@
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import {
   MapContainer,
@@ -9,6 +9,7 @@ import {
   useMapEvent,
 } from "react-leaflet";
 import { useHotels } from "../context/HotelsProvider";
+import useUrlLocation from "../../hooks/useUrlLocation";
 type MapProps<
   T extends {
     id: number;
@@ -30,11 +31,7 @@ function Map<
 >({ markerLocations }: MapProps<T>) {
   const { isLoading } = useHotels();
   const [mapCenter, setMapCenter] = useState<[number, number]>([50, 3]);
-  const [searchParams] = useSearchParams();
-  const lat = searchParams.get("lat");
-  const lng = searchParams.get("lng");
-  const latNum = Number(lat);
-  const lngNum = Number(lng);
+  const [latNum, lngNum] = useUrlLocation();
 
   useEffect(() => {
     if (latNum && lngNum) setMapCenter([latNum, lngNum]);
