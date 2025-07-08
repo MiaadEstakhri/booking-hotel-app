@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ReactCountryFlag from "react-country-flag";
+import axios from "axios";
 import useUrlLocation from "../../hooks/useUrlLocation";
+import { useBookMark } from "../context/BookMarkProvider";
 
 const BASE_GEOLOCATION_URL =
   "https://api.bigdatacloud.net/data/reverse-geocode-client";
@@ -14,6 +16,7 @@ function AddNewBookMark() {
   const [errorGeoLocation, setErrorGeoLocation] = useState<string | null>("");
   const navigate = useNavigate();
   const [latNum, lngNum] = useUrlLocation();
+  const { createBookMark } = useBookMark();
 
   useEffect(() => {
     if (!latNum || !lngNum) return;
@@ -21,10 +24,9 @@ function AddNewBookMark() {
       setIsLoadingGeoLocation(true);
       setErrorGeoLocation(null);
       try {
-        const response = await fetch(
+        const { data } = await axios(
           `${BASE_GEOLOCATION_URL}?latitude=${latNum}&longitude=${lngNum}&localityLanguage=en`
         );
-        const data = await response.json();
         if (!data?.countryCode) {
           throw new Error("This location is not city! Please try again.");
         }
@@ -43,6 +45,19 @@ function AddNewBookMark() {
     };
     fetchLocationData();
   }, [latNum, lngNum]);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const newBookMark = {
+      cityName,
+      country,
+      countryCode,
+      latitude: latNum,
+      longitude: lngNum,
+    };
+    await createBookMark(newBookMark);
+    navigate("/bookmark");
+  };
 
   if (isLoadingGeoLocation) {
     return (
@@ -63,7 +78,7 @@ function AddNewBookMark() {
   return (
     <div className="flex flex-col gap-4 me-4">
       <h2 className="text-2xl font-bold">Add New Bookmark</h2>
-      <form className="flex flex-col gap-5">
+      <form className="flex flex-col gap-5" onSubmit={handleSubmit}>
         <div className="flex flex-col gap-1">
           <label htmlFor="cityName">CityName</label>
           <input
@@ -102,7 +117,10 @@ function AddNewBookMark() {
           >
             &larr; Back
           </button>
-          <button className="p-1 px-3 bg-violet-500 text-white font-semibold rounded-lg shadow-sm">
+          <button
+            className="p-1 px-3 bg-violet-500 text-white font-semibold rounded-lg shadow-sm"
+            type="submit"
+          >
             Add
           </button>
         </div>
