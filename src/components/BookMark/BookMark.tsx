@@ -1,6 +1,7 @@
 import ReactCountryFlag from "react-country-flag";
 import { useBookMark } from "../context/BookMarkProvider";
 import { Link } from "react-router-dom";
+import { TrashIcon } from "../../assets/icons";
 
 function BookMark() {
   const { isLoading, bookMarks, currentBookmark, deleteBookMark } =
@@ -33,7 +34,12 @@ function BookMark() {
                 <ReactCountryFlag countryCode={countryCode} />
                 &nbsp; <strong>{cityName}</strong> &nbsp; <span>{country}</span>
               </div>
-              <button onClick={(e) => handleDelete(e, id)}>Delete</button>
+              <button
+                onClick={(e) => handleDelete(e, id)}
+                className="text-red-500 cursor-pointer"
+              >
+                <TrashIcon fill="red" className="w-5 h-5" />
+              </button>
             </div>
           </Link>
         )
