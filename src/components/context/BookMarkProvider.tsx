@@ -8,6 +8,7 @@ export type BookMarkTypes = {
   country: string;
   latitude: number;
   longitude: number;
+  id?: number | string;
 };
 
 type BookMarkContextType = {
