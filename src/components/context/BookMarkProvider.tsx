@@ -59,7 +59,6 @@ function BookMarkProvider({ children }: { children: React.ReactNode }) {
     setIsLoading(true);
     try {
       const { data } = await axios.get(`${BASE_URL}/${id}`);
-
       setCurrentBookmark(data);
     } catch (error: unknown) {
       if (error instanceof Error) {
@@ -76,6 +75,8 @@ function BookMarkProvider({ children }: { children: React.ReactNode }) {
     setIsLoading(true);
     try {
       const { data } = await axios.post(`${BASE_URL}`, createBookMark);
+      setCurrentBookmark(data);
+
       setBookMarks((prev) => [...prev, data]);
     } catch (error: unknown) {
       if (error instanceof Error) {
