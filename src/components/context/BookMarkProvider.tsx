@@ -96,7 +96,6 @@ function BookMarkProvider({ children }: { children: React.ReactNode }) {
     setIsLoading(true);
     try {
       await axios.delete(`${BASE_URL}/${id}`);
-
       setBookMarks((prev) =>
         prev.filter((bookmark: BookMarkTypes) => bookmark.id !== id)
       );
