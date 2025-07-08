@@ -29,7 +29,7 @@ function SingleBookMark() {
       >
         &larr; Back
       </button>
-      <div key={id} className="p-4 border rounded-xl shadow-md md:me-3">
+      <div className="p-4 border rounded-xl shadow-md md:me-3">
         <ReactCountryFlag countryCode={currentBookmark?.countryCode || ""} />
         &nbsp; <strong>{currentBookmark?.cityName}</strong> &nbsp;{" "}
         <span>{currentBookmark?.country}</span>
