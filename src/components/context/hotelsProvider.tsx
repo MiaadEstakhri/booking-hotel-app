@@ -4,6 +4,7 @@ import useFetch from "../../hooks/useFetch";
 import { HotelTypes } from "../LocationList/LocationList.type";
 import toast from "react-hot-toast";
 import { SingleHotelTypes } from "../SingleHotel/SingleHotel.type";
+import axios from "axios";
 
 type HotelsContextType = {
   isLoading: boolean;
@@ -41,16 +42,15 @@ function HotelsProvider({ children }: { children: React.ReactNode }) {
   async function getHotel(id: string | number) {
     setIsLoadingCurrentHotel(true);
     try {
-      const response = await fetch(`${BASE_URL}/${id}`);
-      const data = await response.json();
+      const { data } = await axios.get(`${BASE_URL}/${id}`);
       setCurrentHotel(data);
-      setIsLoadingCurrentHotel(false);
     } catch (error: unknown) {
       if (error instanceof Error) {
         toast.error(error.message);
       } else {
         toast.error("An unexpected error occurred");
       }
+    } finally {
       setIsLoadingCurrentHotel(false);
     }
   }
