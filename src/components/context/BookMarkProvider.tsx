@@ -2,29 +2,33 @@ import axios from "axios";
 import { useContext, createContext, useState, useEffect } from "react";
 import toast from "react-hot-toast";
 
-export type BookMarkTypes = {
+export interface CreateBookMarkTypes {
   countryCode: string;
   cityName: string;
   country: string;
   latitude: number;
   longitude: number;
-  id?: number | string;
-};
+}
+export interface BookMarkTypes extends CreateBookMarkTypes {
+  id: number | string;
+}
 
-type BookMarkContextType = {
+interface BookMarkContextType {
   isLoading: boolean;
   bookMarks: BookMarkTypes[];
-  getBookMark: (id: string | number) => Promise<void>;
   currentBookmark: BookMarkTypes | null;
-  createBookMark: (createBookMark: BookMarkTypes) => Promise<void>;
-};
+  getBookMark: (id: string | number) => Promise<void>;
+  createBookMark: (createBookMark: CreateBookMarkTypes) => Promise<void>;
+  deleteBookMark: (id: string | number) => Promise<void>;
+}
 
 const BookMarkContext = createContext<BookMarkContextType>({
   isLoading: false,
   bookMarks: [],
-  getBookMark: async () => {},
   currentBookmark: null,
+  getBookMark: async () => {},
   createBookMark: async () => {},
+  deleteBookMark: async () => {},
 });
 
 const BASE_URL = "http://localhost:3000/bookmarks";
@@ -71,13 +75,32 @@ function BookMarkProvider({ children }: { children: React.ReactNode }) {
     }
   }
 
-  async function createBookMark(createBookMark: BookMarkTypes) {
+  async function createBookMark(createBookMark: CreateBookMarkTypes) {
     setIsLoading(true);
     try {
       const { data } = await axios.post(`${BASE_URL}`, createBookMark);
       setCurrentBookmark(data);
-
       setBookMarks((prev) => [...prev, data]);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        toast.error(error.message);
+      } else {
+        toast.error("An unexpected error occurred");
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+  async function deleteBookMark(id: string | number) {
+    setIsLoading(true);
+    try {
+      await axios.delete(`${BASE_URL}/${id}`);
+
+      setBookMarks((prev) =>
+        prev.filter((bookmark: BookMarkTypes) => bookmark.id !== id)
+      );
+      setCurrentBookmark(null);
     } catch (error: unknown) {
       if (error instanceof Error) {
         toast.error(error.message);
@@ -97,6 +120,7 @@ function BookMarkProvider({ children }: { children: React.ReactNode }) {
         currentBookmark,
         createBookMark,
         bookMarks,
+        deleteBookMark,
       }}
     >
       {children}
