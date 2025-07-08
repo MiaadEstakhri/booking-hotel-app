@@ -3,7 +3,16 @@ import { useBookMark } from "../context/BookMarkProvider";
 import { Link } from "react-router-dom";
 
 function BookMark() {
-  const { isLoading, bookMarks, currentBookmark } = useBookMark();
+  const { isLoading, bookMarks, currentBookmark, deleteBookMark } =
+    useBookMark();
+
+  const handleDelete = async (
+    e: React.MouseEvent<HTMLButtonElement>,
+    id: string | number
+  ) => {
+    e.preventDefault();
+    await deleteBookMark(id);
+  };
 
   if (isLoading) return <div>Loading...</div>;
 
@@ -16,13 +25,15 @@ function BookMark() {
         ({ id, countryCode, cityName, country, latitude, longitude }) => (
           <Link key={id} to={`${id}?lat=${latitude}&lng=${longitude}`}>
             <div
-              key={id}
-              className={`p-4 border rounded-xl shadow-md md:me-3 ${
+              className={`flex justify-between items-center p-4 border rounded-xl shadow-md md:me-3 ${
                 id === currentBookmark?.id ? " border-2 border-violet-500" : ""
               }`}
             >
-              <ReactCountryFlag countryCode={countryCode} />
-              &nbsp; <strong>{cityName}</strong> &nbsp; <span>{country}</span>
+              <div>
+                <ReactCountryFlag countryCode={countryCode} />
+                &nbsp; <strong>{cityName}</strong> &nbsp; <span>{country}</span>
+              </div>
+              <button onClick={(e) => handleDelete(e, id)}>Delete</button>
             </div>
           </Link>
         )
