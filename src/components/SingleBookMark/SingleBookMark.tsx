@@ -5,7 +5,7 @@ import { useBookMark } from "../context/BookMarkProvider";
 
 function SingleBookMark() {
   const { id } = useParams();
-  const { currentBookmark, isLoadingCurrBookmark, getBookMark } = useBookMark();
+  const { currentBookmark, isLoading, getBookMark } = useBookMark();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -14,7 +14,7 @@ function SingleBookMark() {
     }
   }, [id]);
 
-  if (isLoadingCurrBookmark && !currentBookmark)
+  if (isLoading && !currentBookmark)
     return (
       <div className="flex justify-center items-center h-screen">
         Loading...
