@@ -10,25 +10,17 @@ import {
 } from "react-leaflet";
 import { useHotels } from "../context/HotelsProvider";
 import useUrlLocation from "../../hooks/useUrlLocation";
-type MapProps<
-  T extends {
-    id: number;
-    latitude: number;
-    longitude: number;
-    host_location?: string;
-  }
-> = {
-  markerLocations: T[];
-};
 
-function Map<
-  T extends {
+function Map({
+  markerLocations,
+}: {
+  markerLocations: {
     id: number;
     latitude: number;
     longitude: number;
     host_location?: string;
-  }
->({ markerLocations }: MapProps<T>) {
+  }[];
+}) {
   const { isLoading } = useHotels();
   const [mapCenter, setMapCenter] = useState<[number, number]>([50, 3]);
   const [latNum, lngNum] = useUrlLocation();
@@ -47,7 +39,7 @@ function Map<
       center={mapCenter}
       zoom={13}
       scrollWheelZoom={true}
-      className="h-[300px] md:h-[780px] w-full rounded-xl md:ms-3 -z-50"
+      className="h-[300px] md:h-[780px] w-full rounded-xl md:ms-3 z-10"
     >
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
