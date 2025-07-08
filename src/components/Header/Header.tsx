@@ -81,7 +81,7 @@ export default function Header() {
             className="outline-none text-sm lg:text-md w-full"
           />
         </div>
-        <div className="flex justify-center">
+        <div className="flex justify-center z-40">
           <span className="border  mx-4 h-10 "></span>
           <div
             onClick={() => setIsOpenDate(!isOpenDate)}
@@ -143,7 +143,7 @@ function GuestOptionList({
   useOutsideClick(optionRef, "optionDropdown", () => setIsOpenOption(false));
   return (
     <div
-      className="absolute w-60 bg-white shadow-xl top-20 py-3 px-4 z-40 rounded-lg"
+      className="absolute w-60 bg-white shadow-xl top-20 py-3 px-4 z-50 rounded-lg"
       ref={optionRef}
     >
       <OptionItem
