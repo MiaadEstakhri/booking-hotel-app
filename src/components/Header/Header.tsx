@@ -67,8 +67,8 @@ export default function Header() {
   };
 
   return (
-    <div className="hidden lg:flex justify-center items-center mt-8">
-      <div className="w-full lg:max-w-[980px] 2xl:max-w-[1400px] grid grid-cols-3 border rounded-3xl px-6 py-4 ">
+    <div className="flex justify-center items-center mt-8">
+      <div className="w-full lg:max-w-[980px] 2xl:max-w-[1400px] grid grid-cols-1 gap-2 justify-items-start px-2  sm:gap-0 sm:grid-cols-3 border rounded-3xl sm:px-6 py-4 ">
         <div className="w-full flex justify-start items-center gap-2">
           <LocationIcon fill="rgb(239 68 68)" />
           <input
@@ -81,11 +81,11 @@ export default function Header() {
             className="outline-none text-sm lg:text-md w-full"
           />
         </div>
-        <div className="flex justify-center z-40">
-          <span className="border  mx-4 h-10 "></span>
+        <div className="w-full flex items-center justify-center z-40 border  border-l-0 border-r-0 py-3 sm:py-0 sm:border-none">
+          <span className="border  mx-4 h-10 hidden sm:block"></span>
           <div
             onClick={() => setIsOpenDate(!isOpenDate)}
-            className="w-full flex justify-center  items-center gap-1 cursor-pointer text-wrap text-sm lg:text-md "
+            className="w-full flex sm:justify-center  items-center gap-1 cursor-pointer text-wrap text-sm lg:text-md "
             id="calenderDropdown"
           >
             <CalenderIcon fill="rgb(139 92 246)" />
@@ -102,11 +102,11 @@ export default function Header() {
             />
           )}
         </div>
-        <div className="flex justify-center">
-          <span className="border  mx-4 h-10 "></span>
+        <div className="w-full flex justify-between sm:justify-center items-center">
+          <span className="border  mx-4 h-10 hidden sm:block"></span>
           <div className="w-full flex justify-center">
             <div
-              className="w-full flex justify-center items-center text-wrap text-sm lg:text-md  cursor-pointer"
+              className="w-full flex sm:justify-center items-center text-wrap text-sm lg:text-md  cursor-pointer"
               onClick={() => setIsOpenOption(!isOpenOption)}
               id="optionDropdown"
             >
