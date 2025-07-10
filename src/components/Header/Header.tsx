@@ -24,6 +24,7 @@ import {
 } from "./Header.type";
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
+import { useAuth } from "../context/AuthProvider.tsx";
 
 export default function Header() {
   const [searchParams] = useSearchParams();
@@ -45,6 +46,7 @@ export default function Header() {
   const [isOpenOption, setIsOpenOption] = useState<boolean>(false);
   const [isOpenDate, setIsOpenDate] = useState<boolean>(false);
   const navigate = useNavigate();
+  const { isAuthenticated, user, logout } = useAuth();
 
   const handleOptions = (name: string, operation: string) => {
     setOptions((prev) => {
@@ -70,18 +72,31 @@ export default function Header() {
   return (
     <div className="flex flex-col sm:flex-row sm:justify-center sm:items-center gap-4 mt-8">
       <div className="flex flex-row justify-between px-4 sm:px-0 sm:flex-col items-center gap-4">
-        <Link
-          className="font-semibold hover:text-violet-500 hover:underline"
-          to="/login"
-        >
-          Login
-        </Link>
-        <Link
-          className="font-semibold hover:text-violet-500 hover:underline"
-          to="/bookmark"
-        >
-          Bookmarks
-        </Link>
+        <div>
+          {isAuthenticated ? (
+            <button
+              onClick={logout}
+              className="font-semibold hover:text-violet-500 hover:underline  cursor-pointer"
+            >
+              &larr; {user?.name}
+            </button>
+          ) : (
+            <Link
+              className="font-semibold hover:text-violet-500 hover:underline cursor-pointer "
+              to="/login"
+            >
+              Login
+            </Link>
+          )}
+        </div>
+        {isAuthenticated && (
+          <Link
+            className="font-semibold hover:text-violet-500 hover:underline cursor-pointer"
+            to="/bookmark"
+          >
+            Bookmarks
+          </Link>
+        )}
       </div>
       <div className="w-full lg:max-w-[980px] 2xl:max-w-[1400px] grid grid-cols-1 gap-2 justify-items-start px-2  sm:gap-0 sm:grid-cols-3 border rounded-3xl sm:px-6 py-4 ">
         <div className="w-full flex justify-start items-center gap-2">
