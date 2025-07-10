@@ -79,7 +79,7 @@ function AddNewBookMark() {
     <div className="flex flex-col gap-4 me-4">
       <h2 className="text-2xl font-bold">Add New Bookmark</h2>
       <form className="flex flex-col gap-5" onSubmit={handleSubmit}>
-        <div className="flex flex-col gap-1">
+        <fieldset className="flex flex-col gap-1">
           <label htmlFor="cityName">CityName</label>
           <input
             type="text"
@@ -89,8 +89,8 @@ function AddNewBookMark() {
             value={cityName}
             onChange={(e) => setCityName(e.target.value)}
           />
-        </div>
-        <div className="flex flex-col gap-1">
+        </fieldset>
+        <fieldset className="flex flex-col gap-1">
           <label htmlFor="country">Country</label>
           <div className="flex items-center justify-between border-2 border-gray-300 rounded-md p-2">
             <input
@@ -106,8 +106,8 @@ function AddNewBookMark() {
               className="w-6 h-6 "
             />
           </div>
-        </div>
-        <div className="flex justify-between">
+        </fieldset>
+        <fieldset className="flex justify-between">
           <button
             className="p-1 px-2  bg-white border-2 border-gray-300 font-semibold rounded-lg shadow-sm"
             onClick={(e) => {
@@ -123,7 +123,7 @@ function AddNewBookMark() {
           >
             Add
           </button>
-        </div>
+        </fieldset>
       </form>
     </div>
   );
