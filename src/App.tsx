@@ -11,6 +11,7 @@ import BookMarkProvider from "./components/context/BookMarkProvider";
 import BookMark from "./components/BookMark/BookMark";
 import SingleBookMark from "./components/SingleBookMark/SingleBookMark";
 import AddNewBookMark from "./components/AddNewBookMark/AddNewBookMark";
+import Login from "./components/Login/Login";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Header />
           <Routes>
             <Route path="/" element={<LocationList />} />
+            <Route path="/login" element={<Login />} />
             <Route path="/hotels" element={<AppLayout />}>
               <Route index element={<Hotels />} />
               <Route path=":id" element={<SingleHotel />} />
